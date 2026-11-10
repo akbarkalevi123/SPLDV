@@ -1,0 +1,1321 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E-Modul Interaktif SPLDV Kelas VIII - Dilnwaz Akbar Kalevi</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- MathJax for Math Formatting -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <!-- Canvas Confetti -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Cinzel:wght@600;700;800&display=swap');
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: linear-gradient(135deg, #1d1610 0%, #2c1f14 50%, #17100b 100%);
+            color: #f3f4f6;
+            min-height: 100vh;
+        }
+
+        .batik-bg {
+            background-color: #241911;
+            background-image: radial-gradient(#d97706 0.75px, transparent 0.75px), radial-gradient(#d97706 0.75px, #241911 0.75px);
+            background-size: 30px 30px;
+            background-position: 0 0, 15px 15px;
+            background-opacity: 0.15;
+        }
+
+        .font-brand {
+            font-family: 'Cinzel', serif;
+        }
+
+        /* Gold Theme Palette */
+        .gold-gradient-text {
+            background: linear-gradient(135deg, #fef08a 0%, #f59e0b 50%, #d97706 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .gold-border {
+            border-color: #d97706;
+        }
+
+        .card-gold {
+            background: rgba(36, 25, 17, 0.85);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(217, 119, 6, 0.3);
+            box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.5), 0 0 15px rgba(217, 119, 6, 0.15);
+        }
+
+        .card-gold:hover {
+            border-color: rgba(245, 158, 11, 0.6);
+            box-shadow: 0 12px 35px -5px rgba(0, 0, 0, 0.6), 0 0 20px rgba(245, 158, 11, 0.25);
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #17100b;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #78350f;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #d97706;
+        }
+
+        /* Number highlighting classes */
+        .hl-x { color: #f87171; font-weight: 700; background: rgba(248, 113, 113, 0.15); padding: 1px 4px; border-radius: 4px; }
+        .hl-y { color: #60a5fa; font-weight: 700; background: rgba(96, 165, 250, 0.15); padding: 1px 4px; border-radius: 4px; }
+        .hl-c { color: #34d399; font-weight: 700; background: rgba(52, 211, 153, 0.15); padding: 1px 4px; border-radius: 4px; }
+        .hl-k { color: #fbbf24; font-weight: 700; background: rgba(251, 191, 36, 0.2); padding: 1px 4px; border-radius: 4px; }
+        .hl-sub { color: #c084fc; font-weight: 700; background: rgba(192, 132, 252, 0.2); padding: 1px 4px; border-radius: 4px; }
+
+        /* Animation step transition */
+        .step-enter {
+            animation: fadeInScale 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        @keyframes fadeInScale {
+            from {
+                opacity: 0;
+                transform: translateY(10px) scale(0.98);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .strike-through {
+            position: relative;
+            display: inline-block;
+        }
+        .strike-through::after {
+            content: '';
+            position: absolute;
+            left: -5%;
+            top: 50%;
+            width: 110%;
+            height: 3px;
+            background-color: #ef4444;
+            transform: rotate(-12deg);
+            border-radius: 2px;
+        }
+    </style>
+</head>
+<body class="batik-bg min-h-screen flex flex-col justify-between selection:bg-amber-500 selection:text-black">
+
+    <!-- HEADER / NAVIGATION -->
+    <header class="sticky top-0 z-50 bg-stone-950/90 backdrop-blur-md border-b border-amber-800/40 px-4 lg:px-8 py-3">
+        <div class="max-w-7xl mx-auto flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-amber-600 to-yellow-400 flex items-center justify-center text-stone-950 shadow-lg shadow-amber-600/20 font-bold">
+                    <i data-lucide="book-open" class="w-6 h-6"></i>
+                </div>
+                <div>
+                    <h1 class="font-brand text-lg lg:text-xl font-bold gold-gradient-text tracking-wide">E-MODUL MATEMATIKA SPLDV</h1>
+                    <p class="text-xs text-amber-200/70">Kelas VIII SMP/MTs • Kurikulum Merdeka • Dilnwaz Akbar Kalevi (UNIMUS)</p>
+                </div>
+            </div>
+
+            <!-- Navigation Tabs -->
+            <nav class="hidden md:flex items-center space-x-1 text-sm font-medium">
+                <button onclick="switchTab('materi')" id="nav-materi" class="nav-btn active px-4 py-2 rounded-lg transition-all flex items-center gap-2 bg-amber-600 text-white shadow-md">
+                    <i data-lucide="book-marked" class="w-4 h-4"></i> Materi & Animasi
+                </button>
+                <button onclick="switchTab('latihan')" id="nav-latihan" class="nav-btn px-4 py-2 rounded-lg text-amber-200/80 hover:bg-amber-900/40 hover:text-amber-100 transition-all flex items-center gap-2">
+                    <i data-lucide="pen-tool" class="w-4 h-4"></i> Latihan Soal
+                </button>
+                <button onclick="switchTab('kalkulator')" id="nav-kalkulator" class="nav-btn px-4 py-2 rounded-lg text-amber-200/80 hover:bg-amber-900/40 hover:text-amber-100 transition-all flex items-center gap-2">
+                    <i data-lucide="calculator" class="w-4 h-4"></i> Visualisator SPLDV
+                </button>
+                <button onclick="switchTab('evaluasi')" id="nav-evaluasi" class="nav-btn px-4 py-2 rounded-lg text-amber-200/80 hover:bg-amber-900/40 hover:text-amber-100 transition-all flex items-center gap-2">
+                    <i data-lucide="award" class="w-4 h-4"></i> Tes Akhir (20 Soal)
+                </button>
+            </nav>
+
+            <!-- Audio & Mobile Menu Button -->
+            <div class="flex items-center gap-2">
+                <button id="bgm-toggle" onclick="toggleAudio()" class="p-2 rounded-lg bg-amber-950/60 border border-amber-800/40 text-amber-400 hover:bg-amber-900/50 transition">
+                    <i data-lucide="volume-2" id="audio-icon" class="w-5 h-5"></i>
+                </button>
+                <button onclick="toggleMobileMenu()" class="md:hidden p-2 rounded-lg bg-amber-950/60 border border-amber-800/40 text-amber-400">
+                    <i data-lucide="menu" class="w-5 h-5"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Navigation Menu -->
+        <div id="mobile-menu" class="hidden md:hidden pt-3 pb-2 border-t border-amber-800/30 mt-3 space-y-1">
+            <button onclick="switchTab('materi')" class="w-full text-left px-3 py-2 rounded-lg text-amber-200 hover:bg-amber-900/50 flex items-center gap-2">
+                <i data-lucide="book-marked" class="w-4 h-4"></i> Materi & Animasi
+            </button>
+            <button onclick="switchTab('latihan')" class="w-full text-left px-3 py-2 rounded-lg text-amber-200 hover:bg-amber-900/50 flex items-center gap-2">
+                <i data-lucide="pen-tool" class="w-4 h-4"></i> Latihan Soal
+            </button>
+            <button onclick="switchTab('kalkulator')" class="w-full text-left px-3 py-2 rounded-lg text-amber-200 hover:bg-amber-900/50 flex items-center gap-2">
+                <i data-lucide="calculator" class="w-4 h-4"></i> Visualisator SPLDV
+            </button>
+            <button onclick="switchTab('evaluasi')" class="w-full text-left px-3 py-2 rounded-lg text-amber-200 hover:bg-amber-900/50 flex items-center gap-2">
+                <i data-lucide="award" class="w-4 h-4"></i> Tes Akhir Modul
+            </button>
+        </div>
+    </header>
+
+    <!-- MAIN CONTENT CONTAINER -->
+    <main class="max-w-7xl mx-auto w-full px-4 lg:px-8 py-6 flex-grow">
+
+        <!-- ================= TAB 1: MATERI & ANIMASI STEP BY STEP ================= -->
+        <section id="tab-materi" class="tab-content space-y-8">
+
+            <!-- BANNER WELCOME -->
+            <div class="card-gold p-6 lg:p-8 rounded-2xl relative overflow-hidden">
+                <div class="absolute -right-10 -bottom-10 w-64 h-64 bg-amber-600/10 rounded-full blur-3xl pointer-events-none"></div>
+                <div class="relative z-10 max-w-3xl space-y-3">
+                    <span class="px-3 py-1 text-xs font-bold bg-amber-500/20 text-amber-300 border border-amber-500/30 rounded-full uppercase tracking-wider">
+                        Flipbook Interactive E-Module
+                    </span>
+                    <h2 class="text-2xl lg:text-3xl font-extrabold gold-gradient-text">
+                        Sistem Persamaan Linear Dua Variabel (SPLDV)
+                    </h2>
+                    <p class="text-stone-300 text-sm lg:text-base leading-relaxed">
+                        Pelajari konsep dasar SPLDV dengan animasi langkah demi langkah interaktif. Setiap perubahan angka, substitusi, eliminasi, dan titik potong grafik dapat dikontrol penuh dengan indikator warna visual yang sangat presisi!
+                    </p>
+                </div>
+            </div>
+
+            <!-- SUB-METODE SELECTOR BUTTONS -->
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                <button onclick="loadMateri('grafik')" id="btn-m-grafik" class="materi-btn card-gold p-4 rounded-xl text-center border-amber-500/80 bg-amber-950/40 text-amber-300 font-semibold flex flex-col items-center gap-2 hover:bg-amber-900/40 transition">
+                    <i data-lucide="line-chart" class="w-6 h-6 text-amber-400"></i>
+                    <span class="text-sm">1. Metode Grafik</span>
+                </button>
+                <button onclick="loadMateri('substitusi')" id="btn-m-substitusi" class="materi-btn card-gold p-4 rounded-xl text-center text-stone-300 font-semibold flex flex-col items-center gap-2 hover:bg-amber-900/40 transition">
+                    <i data-lucide="replace" class="w-6 h-6 text-amber-400"></i>
+                    <span class="text-sm">2. Metode Substitusi</span>
+                </button>
+                <button onclick="loadMateri('eliminasi')" id="btn-m-eliminasi" class="materi-btn card-gold p-4 rounded-xl text-center text-stone-300 font-semibold flex flex-col items-center gap-2 hover:bg-amber-900/40 transition">
+                    <i data-lucide="scissors" class="w-6 h-6 text-amber-400"></i>
+                    <span class="text-sm">3. Metode Eliminasi</span>
+                </button>
+                <button onclick="loadMateri('gabungan')" id="btn-m-gabungan" class="materi-btn card-gold p-4 rounded-xl text-center text-stone-300 font-semibold flex flex-col items-center gap-2 hover:bg-amber-900/40 transition">
+                    <i data-lucide="layers" class="w-6 h-6 text-amber-400"></i>
+                    <span class="text-sm">4. Metode Gabungan</span>
+                </button>
+            </div>
+
+            <!-- DISPLAY PANEL MATERI ANIMASI -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+
+                <!-- LEFT: ANIMATION CONTROLLER & VISUAL CANVAS/DISPLAY -->
+                <div class="lg:col-span-7 card-gold p-5 rounded-2xl flex flex-col justify-between space-y-4">
+                    <div class="flex items-center justify-between border-b border-amber-800/40 pb-3">
+                        <div>
+                            <h3 id="materi-title" class="font-bold text-amber-200 text-lg">Metode Grafik: Penentuan Titik Potong</h3>
+                            <p class="text-xs text-stone-400">Gunakan kontrol di bawah untuk memutar animasi perhitungan.</p>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <span class="text-xs text-amber-400 font-mono" id="step-indicator">Langkah 1 / 5</span>
+                        </div>
+                    </div>
+
+                    <!-- Visual Stage Area -->
+                    <div class="bg-stone-950/80 rounded-xl p-4 border border-amber-900/40 min-h-[360px] flex flex-col justify-center items-center relative overflow-hidden" id="visual-stage">
+                        <!-- Canvas / Animated Elements will render dynamically here -->
+                    </div>
+
+                    <!-- ANIMATION PLAYER CONTROL BAR -->
+                    <div class="bg-stone-900/90 rounded-xl p-3 border border-amber-800/40 flex flex-wrap items-center justify-between gap-3">
+                        <div class="flex items-center gap-2">
+                            <button onclick="animReset()" class="p-2 rounded-lg bg-amber-950/80 hover:bg-amber-900 text-amber-300 transition" title="Reset">
+                                <i data-lucide="rotate-ccw" class="w-4 h-4"></i>
+                            </button>
+                            <button onclick="animPrev()" class="p-2 rounded-lg bg-amber-950/80 hover:bg-amber-900 text-amber-300 transition" title="Sebelumnya">
+                                <i data-lucide="skip-back" class="w-4 h-4"></i>
+                            </button>
+                            <button onclick="animTogglePlay()" id="play-btn" class="p-2.5 rounded-lg bg-amber-600 hover:bg-amber-500 text-stone-950 font-bold transition flex items-center gap-1 shadow-lg shadow-amber-600/30">
+                                <i data-lucide="play" id="play-icon" class="w-5 h-5 fill-current"></i>
+                            </button>
+                            <button onclick="animNext()" class="p-2 rounded-lg bg-amber-950/80 hover:bg-amber-900 text-amber-300 transition" title="Berikutnya">
+                                <i data-lucide="skip-forward" class="w-4 h-4"></i>
+                            </button>
+                        </div>
+
+                        <!-- Speed Controls -->
+                        <div class="flex items-center gap-1 bg-stone-950 px-2 py-1 rounded-lg border border-amber-800/30 text-xs">
+                            <span class="text-stone-400 mr-1">Kecepatan:</span>
+                            <button onclick="setSpeed(0.5)" id="spd-05" class="px-2 py-0.5 rounded text-amber-300/60 hover:text-amber-300">0.5x</button>
+                            <button onclick="setSpeed(1)" id="spd-1" class="px-2 py-0.5 rounded bg-amber-600 text-stone-950 font-bold">1x</button>
+                            <button onclick="setSpeed(2)" id="spd-2" class="px-2 py-0.5 rounded text-amber-300/60 hover:text-amber-300">2x</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- RIGHT: DETAILED TEXT EXPLANATION & MATH HIGHLIGHTS -->
+                <div class="lg:col-span-5 card-gold p-5 rounded-2xl flex flex-col justify-between space-y-4">
+                    <div>
+                        <div class="flex items-center justify-between border-b border-amber-800/40 pb-3 mb-4">
+                            <h4 class="font-bold text-amber-300 flex items-center gap-2 text-base">
+                                <i data-lucide="file-text" class="w-5 h-5"></i> Penjelasan Detail & Bilangan
+                            </h4>
+                            <span class="text-xs text-stone-400 bg-amber-950 px-2 py-1 rounded border border-amber-800/40">Presisi Matematika</span>
+                        </div>
+
+                        <!-- Highlight Legend -->
+                        <div class="grid grid-cols-2 gap-2 text-xs mb-4 p-2.5 rounded-lg bg-stone-950/60 border border-amber-900/30">
+                            <div><span class="hl-x">Warna Merah</span> : Variabel \(x\)</div>
+                            <div><span class="hl-y">Warna Biru</span> : Variabel \(y\)</div>
+                            <div><span class="hl-c">Warna Hijau</span> : Konstanta</div>
+                            <div><span class="hl-k">Warna Kuning</span> : Koefisien / KPK</div>
+                        </div>
+
+                        <!-- Explanation Output Box -->
+                        <div id="materi-explanation" class="text-stone-200 text-sm space-y-3 leading-relaxed min-h-[220px]">
+                            <!-- Dynamic Explanation text will appear here -->
+                        </div>
+                    </div>
+
+                    <div class="p-3 rounded-xl bg-amber-950/40 border border-amber-700/30 text-xs text-amber-200/90 flex items-start gap-2">
+                        <i data-lucide="info" class="w-4 h-4 text-amber-400 flex-shrink-0 mt-0.5"></i>
+                        <p id="materi-tip">Petunjuk: Klik tombol Play untuk memulai simulasi langkah demi langkah sesuai urutan materi.</p>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- SPECIAL SECTION: 3 TYPES OF GRAPHICAL SOLUTIONS -->
+            <div id="grafik-types-section" class="card-gold p-6 rounded-2xl space-y-4">
+                <h3 class="text-lg font-bold text-amber-200 flex items-center gap-2">
+                    <i data-lucide="git-fork" class="w-5 h-5 text-amber-400"></i>
+                    3 Jenis Kemungkinan Solusi Grafik SPLDV
+                </h3>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
+                    <div class="bg-stone-950/80 p-4 rounded-xl border border-amber-800/40 space-y-2">
+                        <span class="px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 font-semibold border border-emerald-500/30">1. Berpotongan</span>
+                        <h4 class="font-bold text-sm text-stone-100">Memiliki 1 Solusi Tepat</h4>
+                        <p class="text-stone-400 leading-normal">Kedua garis memiliki gradien yang berbeda (\(m_1 \neq m_2\)) dan bertemu tepat di satu titik koordinat \((x,y)\).</p>
+                        <p class="text-amber-300 font-mono">Contoh: \(x + y = 5\) & \(x - y = 1\)</p>
+                    </div>
+                    <div class="bg-stone-950/80 p-4 rounded-xl border border-amber-800/40 space-y-2">
+                        <span class="px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 font-semibold border border-amber-500/30">2. Sejajar</span>
+                        <h4 class="font-bold text-sm text-stone-100">Tidak Memiliki Solusi</h4>
+                        <p class="text-stone-400 leading-normal">Kedua garis memiliki gradien sama (\(m_1 = m_2\)) tetapi konstanta berbeda. Garis tidak akan pernah bertemu.</p>
+                        <p class="text-amber-300 font-mono">Contoh: \(2x + y = 4\) & \(2x + y = 8\)</p>
+                    </div>
+                    <div class="bg-stone-950/80 p-4 rounded-xl border border-amber-800/40 space-y-2">
+                        <span class="px-2 py-0.5 rounded bg-blue-500/20 text-blue-300 font-semibold border border-blue-500/30">3. Berimpit</span>
+                        <h4 class="font-bold text-sm text-stone-100">Tak Hingga Solusi</h4>
+                        <p class="text-stone-400 leading-normal">Kedua persamaan sebenarnya identik / kelipatan satu sama lain. Garis saling menumpuk di semua titik.</p>
+                        <p class="text-amber-300 font-mono">Contoh: \(x + y = 3\) & \(2x + 2y = 6\)</p>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+
+        <!-- ================= TAB 2: LATIHAN SOAL PER METODE ================= -->
+        <section id="tab-latihan" class="tab-content hidden space-y-6">
+
+            <div class="card-gold p-6 rounded-2xl flex flex-col md:flex-row items-md-center justify-between gap-4">
+                <div>
+                    <h2 class="text-xl font-bold gold-gradient-text">Ayo Berlatih: Pemahaman Per Metode</h2>
+                    <p class="text-xs text-stone-300">Pilih modul latihan dan selesaikan soal. Disediakan tombol pembuktian langkah demi langkah!</p>
+                </div>
+                <!-- Practice Subtabs -->
+                <div class="flex flex-wrap gap-2">
+                    <button onclick="loadLatihan(1)" id="btn-lat-1" class="lat-btn px-3 py-1.5 rounded-lg bg-amber-600 text-stone-950 font-bold text-xs">Latihan 1: Grafik</button>
+                    <button onclick="loadLatihan(2)" id="btn-lat-2" class="lat-btn px-3 py-1.5 rounded-lg bg-amber-950 text-amber-200 hover:bg-amber-900 text-xs">Latihan 2: Substitusi</button>
+                    <button onclick="loadLatihan(3)" id="btn-lat-3" class="lat-btn px-3 py-1.5 rounded-lg bg-amber-950 text-amber-200 hover:bg-amber-900 text-xs">Latihan 3: Eliminasi</button>
+                    <button onclick="loadLatihan(4)" id="btn-lat-4" class="lat-btn px-3 py-1.5 rounded-lg bg-amber-950 text-amber-200 hover:bg-amber-900 text-xs">Latihan 4: Cerita (Gabungan)</button>
+                </div>
+            </div>
+
+            <!-- Practice Question Container -->
+            <div id="latihan-container" class="space-y-6">
+                <!-- Dynamically populated practice questions -->
+            </div>
+
+        </section>
+
+        <!-- ================= TAB 3: KALKULATOR & VISUALISATOR SPLDV ================= -->
+        <section id="tab-kalkulator" class="tab-content hidden space-y-6">
+
+            <div class="card-gold p-6 rounded-2xl">
+                <h2 class="text-xl font-bold gold-gradient-text mb-2">Kalkulator & Visualisator Presisi SPLDV</h2>
+                <p class="text-xs text-stone-300">Masukkan koefisien persamaan linear dua variabel Anda untuk mendapatkan grafik otomatis serta penjabaran penyelesaian presisi lengkap!</p>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+                    <!-- Input Form -->
+                    <div class="space-y-4 bg-stone-950/70 p-4 rounded-xl border border-amber-800/40">
+                        <h3 class="font-bold text-amber-300 text-sm border-b border-amber-800/30 pb-2">Bentuk Persamaan: \(a_1 x + b_1 y = c_1\) & \(a_2 x + b_2 y = c_2\)</h3>
+
+                        <!-- Persamaan 1 -->
+                        <div class="space-y-2">
+                            <label class="text-xs font-semibold text-amber-200">Persamaan 1:</label>
+                            <div class="flex items-center gap-2 text-sm font-mono">
+                                <input type="number" id="calc-a1" value="2" class="w-16 bg-stone-900 border border-amber-700/60 rounded px-2 py-1 text-center text-amber-300 focus:outline-none focus:border-amber-400">
+                                <span class="text-stone-300">x +</span>
+                                <input type="number" id="calc-b1" value="3" class="w-16 bg-stone-900 border border-amber-700/60 rounded px-2 py-1 text-center text-amber-300 focus:outline-none focus:border-amber-400">
+                                <span class="text-stone-300">y =</span>
+                                <input type="number" id="calc-c1" value="12" class="w-16 bg-stone-900 border border-amber-700/60 rounded px-2 py-1 text-center text-amber-300 focus:outline-none focus:border-amber-400">
+                            </div>
+                        </div>
+
+                        <!-- Persamaan 2 -->
+                        <div class="space-y-2">
+                            <label class="text-xs font-semibold text-amber-200">Persamaan 2:</label>
+                            <div class="flex items-center gap-2 text-sm font-mono">
+                                <input type="number" id="calc-a2" value="4" class="w-16 bg-stone-900 border border-amber-700/60 rounded px-2 py-1 text-center text-amber-300 focus:outline-none focus:border-amber-400">
+                                <span class="text-stone-300">x -</span>
+                                <input type="number" id="calc-b2" value="-1" class="w-16 bg-stone-900 border border-amber-700/60 rounded px-2 py-1 text-center text-amber-300 focus:outline-none focus:border-amber-400">
+                                <span class="text-stone-300">y =</span>
+                                <input type="number" id="calc-c2" value="10" class="w-16 bg-stone-900 border border-amber-700/60 rounded px-2 py-1 text-center text-amber-300 focus:outline-none focus:border-amber-400">
+                            </div>
+                        </div>
+
+                        <button onclick="calculateCustomSPLDV()" class="w-full py-2.5 rounded-lg bg-gradient-to-r from-amber-600 to-yellow-500 hover:from-amber-500 hover:to-yellow-400 text-stone-950 font-bold text-sm shadow-lg shadow-amber-600/20 flex items-center justify-center gap-2 transition">
+                            <i data-lucide="calculator" class="w-4 h-4"></i> Hitung & Visualisasikan
+                        </button>
+                    </div>
+
+                    <!-- Canvas Interactive Graph -->
+                    <div class="bg-stone-950 rounded-xl p-3 border border-amber-800/40 flex flex-col items-center justify-center min-h-[280px]">
+                        <canvas id="custom-canvas" width="360" height="260" class="w-full h-auto bg-stone-950 rounded border border-amber-900/40"></canvas>
+                        <div class="mt-2 text-center">
+                            <span id="calc-result-badge" class="text-xs font-bold text-emerald-400 bg-emerald-950/80 px-3 py-1 rounded-full border border-emerald-700/40">
+                                Titik Potong Solusi: (3, 2)
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Custom Step Solution Output -->
+                <div id="calc-steps-output" class="mt-6 space-y-4 bg-stone-950/90 p-5 rounded-xl border border-amber-800/40 text-sm">
+                    <!-- Step output generated dynamically -->
+                </div>
+            </div>
+
+        </section>
+
+        <!-- ================= TAB 4: TES AKHIR MODUL (20 SOAL) ================= -->
+        <section id="tab-evaluasi" class="tab-content hidden space-y-6">
+
+            <div class="card-gold p-6 rounded-2xl flex flex-col md:flex-row items-center justify-between gap-4">
+                <div>
+                    <h2 class="text-xl font-bold gold-gradient-text">Tes Evaluasi Akhir Modul (20 Soal)</h2>
+                    <p class="text-xs text-stone-300">Selesaikan seluruh 20 soal pilihan ganda dari dokumen PDF untuk menguji tingkat penguasaan materi SPLDV.</p>
+                </div>
+                <div id="quiz-status-box" class="bg-amber-950/80 px-4 py-2 rounded-xl border border-amber-700/50 text-right">
+                    <span class="text-xs text-stone-400 block">Skor Kamu:</span>
+                    <span id="quiz-score-display" class="text-xl font-bold text-amber-300">0 / 100</span>
+                </div>
+            </div>
+
+            <!-- Quiz Questions Grid -->
+            <div id="quiz-questions-list" class="space-y-6">
+                <!-- 20 Questions rendered dynamically -->
+            </div>
+
+            <!-- Submit Quiz Button -->
+            <div class="flex justify-center pt-4">
+                <button onclick="submitQuiz()" class="px-8 py-3 rounded-xl bg-gradient-to-r from-amber-600 via-amber-500 to-yellow-500 hover:from-amber-500 hover:to-yellow-400 text-stone-950 font-bold text-base shadow-xl shadow-amber-600/30 transition flex items-center gap-2">
+                    <i data-lucide="check-circle-2" class="w-5 h-5"></i> Selesaikan & Dapatkan Nilai
+                </button>
+            </div>
+
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-stone-950 border-t border-amber-900/40 py-6 px-4 text-center text-xs text-stone-400 mt-12">
+        <div class="max-w-7xl mx-auto space-y-2">
+            <p class="font-semibold text-amber-200">E-Modul Interaktif Pembelajaran Matematika SMP/MTs Kelas VIII</p>
+            <p>Sistem Persamaan Linear Dua Variabel (SPLDV) • Penulis: <span class="text-amber-400 font-medium">Dilnwaz Akbar Kalevi</span> (Universitas Muhammadiyah Semarang)</p>
+            <p class="text-stone-500"> Didesain dengan Nuansa Batik Nusantara & Presisi Visualisasi Angka.</p>
+        </div>
+    </footer>
+
+    <!-- AUDIO BACKSTAGE AUDIO GENERATOR (ToneJS synthesis synth) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.js"></script>
+
+    <!-- MAIN JAVASCRIPT APPLICATION LOGIC -->
+    <script>
+        // ================= GLOBAL STATE =================
+        let currentTab = 'materi';
+        let currentMateri = 'grafik';
+        let animStep = 0;
+        let isPlaying = false;
+        let animSpeed = 1;
+        let animTimer = null;
+        let audioMuted = true;
+
+        // Audio Synth
+        let synth = null;
+
+        function initAudio() {
+            if (!synth && typeof Tone !== 'undefined') {
+                synth = new Tone.Synth({
+                    oscillator: { type: 'sine' },
+                    envelope: { attack: 0.01, decay: 0.1, sustain: 0.1, release: 0.2 }
+                }).toDestination();
+                synth.volume.value = -12;
+            }
+        }
+
+        function playBeep(note = 'C5') {
+            if (!audioMuted && synth) {
+                try {
+                    synth.triggerAttackRelease(note, '8n');
+                } catch(e){}
+            }
+        }
+
+        function toggleAudio() {
+            audioMuted = !audioMuted;
+            const btn = document.getElementById('bgm-toggle');
+            const icon = document.getElementById('audio-icon');
+            if (!audioMuted) {
+                Tone.start();
+                initAudio();
+                btn.classList.add('bg-amber-600', 'text-stone-950');
+                btn.classList.remove('bg-amber-950/60', 'text-amber-400');
+                playBeep('E5');
+            } else {
+                btn.classList.remove('bg-amber-600', 'text-stone-950');
+                btn.classList.add('bg-amber-950/60', 'text-amber-400');
+            }
+        }
+
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        }
+
+        // ================= TAB NAVIGATION =================
+        function switchTab(tabId) {
+            currentTab = tabId;
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+            document.getElementById(`tab-${tabId}`).classList.remove('hidden');
+
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.classList.remove('bg-amber-600', 'text-white', 'shadow-md');
+                btn.classList.add('text-amber-200/80');
+            });
+
+            const activeNav = document.getElementById(`nav-${tabId}`);
+            if(activeNav) {
+                activeNav.classList.add('bg-amber-600', 'text-white', 'shadow-md');
+                activeNav.classList.remove('text-amber-200/80');
+            }
+
+            if(tabId === 'kalkulator') {
+                calculateCustomSPLDV();
+            }
+
+            playBeep('G4');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // ================= MATERI & ANIMATION DATA =================
+        const MATERI_DATA = {
+            grafik: {
+                title: '1. Metode Grafik (Penentuan Titik Potong)',
+                tip: 'Metode grafik menentukan solusi dengan menggambar garis dari kedua persamaan pada bidang Kartesius lalu mencari titik potongnya.',
+                steps: [
+                    {
+                        subtitle: 'Langkah 1: Menentukan Titik Potong Sumbu Persamaan 1 (x + y = 5)',
+                        exp: `Untuk menggambar garis <span class="hl-k">x + y = 5</span>, cari 2 titik utama:<br>
+                              • Jika <span class="hl-x">x = 0</span> \(\\rightarrow\) <span class="hl-y">y = 5</span> \(\\rightarrow\) Titik <b>(0, 5)</b>.<br>
+                              • Jika <span class="hl-y">y = 0</span> \(\\rightarrow\) <span class="hl-x">x = 5</span> \(\\rightarrow\) Titik <b>(5, 0)</b>.`,
+                        draw: (ctx, w, h) => drawGraphStep(ctx, w, h, 1)
+                    },
+                    {
+                        subtitle: 'Langkah 2: Menggambar Garis Persamaan 1 (f)',
+                        exp: `Hubungkan titik <span class="hl-k">(0,5)</span> dan <span class="hl-k">(5,0)</span> sehingga terbentuk garis lurus <span class="hl-k">f: x + y = 5</span>.`,
+                        draw: (ctx, w, h) => drawGraphStep(ctx, w, h, 2)
+                    },
+                    {
+                        subtitle: 'Langkah 3: Menentukan Titik Potong Sumbu Persamaan 2 (x - y = 1)',
+                        exp: `Untuk garis <span class="hl-sub">x - y = 1</span>:<br>
+                              • Jika <span class="hl-x">x = 0</span> \(\\rightarrow\) <span class="hl-y">-y = 1</span> \(\\rightarrow\) <span class="hl-y">y = -1</span> \(\\rightarrow\) Titik <b>(0, -1)</b>.<br>
+                              • Jika <span class="hl-y">y = 0</span> \(\\rightarrow\) <span class="hl-x">x = 1</span> \(\\rightarrow\) Titik <b>(1, 0)</b>.`,
+                        draw: (ctx, w, h) => drawGraphStep(ctx, w, h, 3)
+                    },
+                    {
+                        subtitle: 'Langkah 4: Menggambar Garis Persamaan 2 (g)',
+                        exp: `Hubungkan titik <span class="hl-sub">(0,-1)</span> dan <span class="hl-sub">(1,0)</span> membentuk garis <span class="hl-sub">g: x - y = 1</span>.`,
+                        draw: (ctx, w, h) => drawGraphStep(ctx, w, h, 4)
+                    },
+                    {
+                        subtitle: 'Langkah 5: Titik Pertemuan / Solusi Akhir',
+                        exp: `Perhatikan pertemuan garis <span class="hl-k">f</span> dan garis <span class="hl-sub">g</span>.<br>
+                              Kedua garis berpotongan di koordinat <span class="hl-x">x = 3</span> dan <span class="hl-y">y = 2</span>.<br>
+                              Jadi, Himpunan Penyelesaian <b>HP = {(3, 2)}</b>.`,
+                        draw: (ctx, w, h) => drawGraphStep(ctx, w, h, 5)
+                    }
+                ]
+            },
+            substitusi: {
+                title: '2. Metode Substitusi (Mengganti Variabel)',
+                tip: 'Metode substitusi dilakukan dengan mengisolasi salah satu variabel dari satu persamaan, lalu memasukkannya ke persamaan lainnya.',
+                steps: [
+                    {
+                        subtitle: 'Persamaan Asal & Rencana Isolasi',
+                        exp: `Diberikan sistem persamaan:<br>
+                              (1) <span class="hl-k">x + 3y = 4</span><br>
+                              (2) <span class="hl-sub">2x - y = 15</span><br><br>
+                              Ubah pers (1) untuk mengisolasi <span class="hl-x">x</span>: <br>
+                              \(\\rightarrow\) <span class="hl-x">x</span> = <span class="hl-c">4</span> - <span class="hl-y">3y</span>`,
+                        renderHTML: () => `<div class="text-center space-y-4">
+                            <div class="text-lg font-mono bg-stone-900 p-3 rounded-lg border border-amber-800/40">
+                                (1) <span class="hl-x">x</span> + <span class="hl-y">3y</span> = <span class="hl-c">4</span><br>
+                                (2) <span class="hl-k">2</span><span class="hl-x">x</span> - <span class="hl-y">y</span> = <span class="hl-c">15</span>
+                            </div>
+                            <div class="p-3 bg-amber-950/60 rounded-lg border border-amber-600/40 font-mono text-amber-300">
+                                Isolated: <span class="hl-x">x</span> = <span class="hl-c">4</span> - <span class="hl-y">3y</span>
+                            </div>
+                        </div>`
+                    },
+                    {
+                        subtitle: 'Substitusi Variabel x ke Persamaan (2)',
+                        exp: `Ganti <span class="hl-x">x</span> pada persamaan (2) dengan nilai <span class="hl-sub">(4 - 3y)</span>:<br>
+                              \(2\)<span class="hl-sub">(4 - 3y)</span> \(- y = 15\)<br><br>
+                              Kalikan masuk angka 2:<br>
+                              \(8 - 6y - y = 15\)`,
+                        renderHTML: () => `<div class="text-center space-y-4 font-mono">
+                            <div class="text-sm bg-stone-900 p-2 rounded">2<span class="hl-x">x</span> - y = 15</div>
+                            <div class="text-lg bg-amber-900/40 p-3 rounded border border-amber-500 text-amber-300 animate-pulse">
+                                2<span class="hl-sub">(4 - 3y)</span> - y = 15
+                            </div>
+                            <div class="text-base bg-stone-900 p-2 rounded">
+                                8 - 6y - y = 15
+                            </div>
+                        </div>`
+                    },
+                    {
+                        subtitle: 'Isolasi dan Selesaikan Variabel y',
+                        exp: `Sederhanakan suku-suku sejenis:<br>
+                              \(8 - 7y = 15\)<br>
+                              \(-7y = 15 - 8\)<br>
+                              \(-7y = 7\)<br>
+                              \(\mathbf{y = -1}\)`,
+                        renderHTML: () => `<div class="text-center space-y-2 font-mono text-base">
+                            <div>8 - 7y = 15</div>
+                            <div>-7y = 15 - 8</div>
+                            <div>-7y = 7</div>
+                            <div class="text-xl font-bold text-blue-400 bg-blue-950/60 p-2 rounded border border-blue-500/40">
+                                y = -1
+                            </div>
+                        </div>`
+                    },
+                    {
+                        subtitle: 'Substitusi Kembali Nilai y untuk Mendapatkan x',
+                        exp: `Masukkan <span class="hl-y">y = -1</span> ke persamaan terisolasi <span class="hl-x">x = 4 - 3y</span>:<br>
+                              \(x = 4 - 3(-1)\)<br>
+                              \(x = 4 + 3\)<br>
+                              \(\mathbf{x = 7}\)`,
+                        renderHTML: () => `<div class="text-center space-y-3 font-mono">
+                            <div>x = 4 - 3<span class="hl-y">(-1)</span></div>
+                            <div>x = 4 + 3</div>
+                            <div class="text-xl font-bold text-red-400 bg-red-950/60 p-2 rounded border border-red-500/40">
+                                x = 7
+                            </div>
+                            <div class="mt-4 p-3 bg-emerald-950/80 border border-emerald-500 rounded-lg text-emerald-300 font-sans font-bold text-base">
+                                Solusi Akhir: HP = {(7, -1)}
+                            </div>
+                        </div>`
+                    }
+                ]
+            },
+            eliminasi: {
+                title: '3. Metode Eliminasi (Menghilangkan Variabel)',
+                tip: 'Metode eliminasi menghilangkan salah satu variabel dengan menyamakan koefisiennya menggunakan KPK.',
+                steps: [
+                    {
+                        subtitle: 'Persamaan Asal & Penentuan KPK Koefisien x',
+                        exp: `Diberikan persamaan:<br>
+                              (1) <span class="hl-k">3</span>x + 2y = 21<br>
+                              (2) <span class="hl-k">5</span>x - 7y = 4<br><br>
+                              Koefisien \(x\) adalah 3 dan 5. <br>
+                              <b>KPK(3, 5) = 15</b>. Maka kalikan pers (1) dengan 5, dan pers (2) dengan 3.`,
+                        renderHTML: () => `<div class="text-center space-y-3 font-mono">
+                            <div class="flex items-center justify-center gap-4 bg-stone-900 p-2 rounded">
+                                <span>3x + 2y = 21</span>
+                                <span class="text-amber-400 font-bold">| × 5</span>
+                            </div>
+                            <div class="flex items-center justify-center gap-4 bg-stone-900 p-2 rounded">
+                                <span>5x - 7y = 4</span>
+                                <span class="text-amber-400 font-bold">| × 3</span>
+                            </div>
+                        </div>`
+                    },
+                    {
+                        subtitle: 'Hasil Perkalian & Proses Pengurangan Vertikal',
+                        exp: `Hasil perkalian kedua persamaan:<br>
+                              (1) <span class="hl-k">15x</span> + 10y = 105<br>
+                              (2) <span class="hl-k">15x</span> - 21y = 12<br>
+                              --------------------------- (-)<br>
+                              Variabel \(x\) tereliminasi: \(15x - 15x = 0\)`,
+                        renderHTML: () => `<div class="font-mono text-center space-y-2 bg-stone-900 p-4 rounded-xl border border-amber-800/40">
+                            <div class="text-amber-300"><span class="strike-through">15x</span> + 10y = 105</div>
+                            <div class="text-amber-300"><span class="strike-through">15x</span> - 21y = 12</div>
+                            <div class="border-t-2 border-stone-500 pt-1 text-red-400 font-bold">
+                                0 + 31y = 93
+                            </div>
+                        </div>`
+                    },
+                    {
+                        subtitle: 'Mendapatkan Nilai y',
+                        exp: `Dari hasil pengurangan di atas:<br>
+                              \(31y = 93\)<br>
+                              \(y = \frac{93}{31}\)<br>
+                              \(\mathbf{y = 3}\)`,
+                        renderHTML: () => `<div class="text-center space-y-3 font-mono">
+                            <div class="text-lg">31y = 93</div>
+                            <div class="text-xl font-bold text-blue-400 bg-blue-950/60 p-2 rounded border border-blue-500/40">
+                                y = 3
+                            </div>
+                        </div>`
+                    },
+                    {
+                        subtitle: 'Eliminasi Variabel y untuk Mendapatkan x',
+                        exp: `Lakukan hal yang sama untuk mengeliminasi \(y\) (KPK dari 2 dan 7 adalah 14):<br>
+                              (1) \(3x + 2y = 21\) | × 7 \(\rightarrow\) \(21x + 14y = 147\)<br>
+                              (2) \(5x - 7y = 4\) | × 2 \(\rightarrow\) \(10x - 14y = 8\)<br>
+                              ---------------------------------- (+)<br>
+                              \(31x = 155 \rightarrow \mathbf{x = 5}\)`,
+                        renderHTML: () => `<div class="text-center space-y-3 font-mono">
+                            <div class="bg-stone-900 p-2 rounded text-sm">21x + 10x = 155 \(\rightarrow\) 31x = 155</div>
+                            <div class="text-xl font-bold text-red-400 bg-red-950/60 p-2 rounded border border-red-500/40">
+                                x = 5
+                            </div>
+                            <div class="p-3 bg-emerald-950/80 border border-emerald-500 rounded-lg text-emerald-300 font-sans font-bold text-base">
+                                Solusi Akhir: HP = {(5, 3)}
+                            </div>
+                        </div>`
+                    }
+                ]
+            },
+            gabungan: {
+                title: '4. Metode Gabungan (Eliminasi + Substitusi)',
+                tip: 'Metode gabungan diawali eliminasi untuk menemukan 1 variabel, kemudian substitusi untuk variabel lainnya.',
+                steps: [
+                    {
+                        subtitle: 'Soal Cerita PDF: Laptop RAM 4GB & 6GB',
+                        exp: `<b>Model Matematika:</b><br>
+                              Misalkan jumlah Laptop A (4GB) = <span class="hl-x">A</span>, Laptop B (6GB) = <span class="hl-y">B</span>.<br>
+                              (1) Total laptop: <span class="hl-x">A</span> + <span class="hl-y">B</span> = 50<br>
+                              (2) Total RAM: <span class="hl-x">4A</span> + <span class="hl-y">6B</span> = 240`,
+                        renderHTML: () => `<div class="bg-stone-900 p-4 rounded-xl border border-amber-800/40 space-y-3 text-center font-mono">
+                            <div class="text-amber-300">(1) A + B = 50</div>
+                            <div class="text-amber-300">(2) 4A + 6B = 240</div>
+                        </div>`
+                    },
+                    {
+                        subtitle: 'Langkah 1: Eliminasi Variabel A',
+                        exp: `Kalikan pers (1) dengan 4 untuk menyamakan koefisien A:<br>
+                              \(4A + 4B = 200\)<br>
+                              \(4A + 6B = 240\)<br>
+                              ----------------- (-)<br>
+                              \(-2B = -40 \rightarrow \mathbf{B = 20}\) (Laptop RAM 6GB)`,
+                        renderHTML: () => `<div class="bg-stone-900 p-4 rounded-xl border border-amber-800/40 text-center font-mono space-y-2">
+                            <div><span class="strike-through">4A</span> + 4B = 200</div>
+                            <div><span class="strike-through">4A</span> + 6B = 240</div>
+                            <div class="border-t border-stone-600 pt-1 text-blue-400 font-bold text-lg">
+                                -2B = -40 \(\rightarrow\) B = 20
+                            </div>
+                        </div>`
+                    },
+                    {
+                        subtitle: 'Langkah 2: Substitusi Nilai B = 20',
+                        exp: `Substitusi <span class="hl-y">B = 20</span> ke persamaan sederhana (1):<br>
+                              \(A + 20 = 50\)<br>
+                              \(A = 50 - 20\)<br>
+                              \(\mathbf{A = 30}\) (Laptop RAM 4GB)`,
+                        renderHTML: () => `<div class="text-center space-y-3 font-mono">
+                            <div>A + <span class="hl-y">20</span> = 50</div>
+                            <div class="text-xl font-bold text-red-400 bg-red-950/60 p-2 rounded border border-red-500/40">
+                                A = 30
+                            </div>
+                            <div class="p-3 bg-emerald-950/80 border border-emerald-500 rounded-lg text-emerald-300 font-sans font-bold text-base">
+                                Jumlah Laptop A = 30 unit & Laptop B = 20 unit.
+                            </div>
+                        </div>`
+                    }
+                ]
+            }
+        };
+
+        // ================= GRAPH DRAWING HELPER =================
+        function drawGraphStep(ctx, w, h, step) {
+            ctx.clearRect(0, 0, w, h);
+
+            // Origin center
+            const cx = w / 2;
+            const cy = h / 2;
+            const scale = 22; // 1 unit = 22px
+
+            // Grid Lines
+            ctx.strokeStyle = '#33261a';
+            ctx.lineWidth = 1;
+            for (let x = 0; x < w; x += scale) {
+                ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, h); ctx.stroke();
+            }
+            for (let y = 0; y < h; y += scale) {
+                ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(w, y); ctx.stroke();
+            }
+
+            // Axes
+            ctx.strokeStyle = '#d97706';
+            ctx.lineWidth = 2;
+            ctx.beginPath(); ctx.moveTo(0, cy); ctx.lineTo(w, cy); ctx.stroke();
+            ctx.beginPath(); ctx.moveTo(cx, 0); ctx.lineTo(cx, h); ctx.stroke();
+
+            // Axis Labels
+            ctx.fillStyle = '#fef08a';
+            ctx.font = '11px sans-serif';
+            ctx.fillText('X', w - 15, cy - 8);
+            ctx.fillText('Y', cx + 8, 15);
+
+            // Map grid coordinates
+            const toCanvasX = (x) => cx + x * scale;
+            const toCanvasY = (y) => cy - y * scale;
+
+            // Draw line 1: x + y = 5
+            if (step >= 1) {
+                // Points (0,5) and (5,0)
+                ctx.fillStyle = '#fbbf24';
+                ctx.beginPath(); ctx.arc(toCanvasX(0), toCanvasY(5), 5, 0, Math.PI * 2); ctx.fill();
+                ctx.beginPath(); ctx.arc(toCanvasX(5), toCanvasY(0), 5, 0, Math.PI * 2); ctx.fill();
+            }
+            if (step >= 2) {
+                ctx.strokeStyle = '#f59e0b';
+                ctx.lineWidth = 3;
+                ctx.beginPath();
+                ctx.moveTo(toCanvasX(-1), toCanvasY(6));
+                ctx.lineTo(toCanvasX(6), toCanvasY(-1));
+                ctx.stroke();
+                ctx.fillText('f: x+y=5', toCanvasX(4), toCanvasY(1.5));
+            }
+
+            // Draw line 2: x - y = 1
+            if (step >= 3) {
+                ctx.fillStyle = '#c084fc';
+                ctx.beginPath(); ctx.arc(toCanvasX(0), toCanvasY(-1), 5, 0, Math.PI * 2); ctx.fill();
+                ctx.beginPath(); ctx.arc(toCanvasX(1), toCanvasY(0), 5, 0, Math.PI * 2); ctx.fill();
+            }
+            if (step >= 4) {
+                ctx.strokeStyle = '#a855f7';
+                ctx.lineWidth = 3;
+                ctx.beginPath();
+                ctx.moveTo(toCanvasX(-1), toCanvasY(-2));
+                ctx.lineTo(toCanvasX(5), toCanvasY(4));
+                ctx.stroke();
+                ctx.fillText('g: x-y=1', toCanvasX(3.5), toCanvasY(2.8));
+            }
+
+            // Draw intersection solution
+            if (step >= 5) {
+                const ix = toCanvasX(3);
+                const iy = toCanvasY(2);
+
+                // Pulse Effect Circle
+                ctx.fillStyle = 'rgba(52, 211, 153, 0.4)';
+                ctx.beginPath(); ctx.arc(ix, iy, 12, 0, Math.PI * 2); ctx.fill();
+
+                ctx.fillStyle = '#10b981';
+                ctx.beginPath(); ctx.arc(ix, iy, 6, 0, Math.PI * 2); ctx.fill();
+
+                ctx.fillStyle = '#34d399';
+                ctx.font = 'bold 12px sans-serif';
+                ctx.fillText('Solusi (3, 2)', ix + 10, iy - 10);
+            }
+        }
+
+        // ================= MATERI CONTROLLER LOGIC =================
+        function loadMateri(materiKey) {
+            currentMateri = materiKey;
+            animStep = 0;
+            stopAnim();
+
+            document.querySelectorAll('.materi-btn').forEach(btn => {
+                btn.classList.remove('border-amber-500/80', 'bg-amber-950/40', 'text-amber-300');
+                btn.classList.add('text-stone-300');
+            });
+            const activeBtn = document.getElementById(`btn-m-${materiKey}`);
+            if(activeBtn) {
+                activeBtn.classList.add('border-amber-500/80', 'bg-amber-950/40', 'text-amber-300');
+                activeBtn.classList.remove('text-stone-300');
+            }
+
+            const data = MATERI_DATA[materiKey];
+            document.getElementById('materi-title').innerHTML = data.title;
+            document.getElementById('materi-tip').innerHTML = data.tip;
+
+            // Show/Hide Grafik 3 Types Info
+            const grafikTypeSection = document.getElementById('grafik-types-section');
+            if(materiKey === 'grafik') {
+                grafikTypeSection.classList.remove('hidden');
+            } else {
+                grafikTypeSection.classList.add('hidden');
+            }
+
+            renderCurrentStep();
+        }
+
+        function renderCurrentStep() {
+            const data = MATERI_DATA[currentMateri];
+            const stepData = data.steps[animStep];
+
+            document.getElementById('step-indicator').innerText = `Langkah ${animStep + 1} / ${data.steps.length}`;
+
+            // Render Stage
+            const stage = document.getElementById('visual-stage');
+            stage.innerHTML = '';
+
+            if (currentMateri === 'grafik') {
+                const canvas = document.createElement('canvas');
+                canvas.width = 360;
+                canvas.height = 300;
+                canvas.className = 'w-full h-auto max-w-[360px] rounded border border-amber-900/40 shadow';
+                stage.appendChild(canvas);
+                const ctx = canvas.getContext('2d');
+                stepData.draw(ctx, canvas.width, canvas.height);
+            } else {
+                const stepBox = document.createElement('div');
+                stepBox.className = 'w-full max-w-md p-4 step-enter';
+                stepBox.innerHTML = stepData.renderHTML();
+                stage.appendChild(stepBox);
+            }
+
+            // Render Text Explanation
+            const expBox = document.getElementById('materi-explanation');
+            expBox.innerHTML = `
+                <h5 class="font-bold text-amber-300 border-b border-amber-800/30 pb-1 mb-2">${stepData.subtitle}</h5>
+                <div>${stepData.exp}</div>
+            `;
+
+            if (window.MathJax) {
+                MathJax.typesetPromise([expBox, stage]).catch((err) => {});
+            }
+        }
+
+        function animNext() {
+            const data = MATERI_DATA[currentMateri];
+            if (animStep < data.steps.length - 1) {
+                animStep++;
+                renderCurrentStep();
+                playBeep('E4');
+            } else {
+                stopAnim();
+            }
+        }
+
+        function animPrev() {
+            if (animStep > 0) {
+                animStep--;
+                renderCurrentStep();
+                playBeep('C4');
+            }
+        }
+
+        function animReset() {
+            animStep = 0;
+            stopAnim();
+            renderCurrentStep();
+        }
+
+        function animTogglePlay() {
+            if (isPlaying) {
+                stopAnim();
+            } else {
+                startAnim();
+            }
+        }
+
+        function startAnim() {
+            isPlaying = true;
+            document.getElementById('play-icon').setAttribute('data-lucide', 'pause');
+            lucide.createIcons();
+
+            const interval = 2500 / animSpeed;
+            animTimer = setInterval(() => {
+                const data = MATERI_DATA[currentMateri];
+                if (animStep < data.steps.length - 1) {
+                    animStep++;
+                    renderCurrentStep();
+                } else {
+                    stopAnim();
+                }
+            }, interval);
+        }
+
+        function stopAnim() {
+            isPlaying = false;
+            if (animTimer) clearInterval(animTimer);
+            document.getElementById('play-icon').setAttribute('data-lucide', 'play');
+            lucide.createIcons();
+        }
+
+        function setSpeed(spd) {
+            animSpeed = spd;
+            ['05', '1', '2'].forEach(id => {
+                const b = document.getElementById(`spd-${id}`);
+                b.classList.remove('bg-amber-600', 'text-stone-950', 'font-bold');
+                b.classList.add('text-amber-300/60');
+            });
+            const key = spd === 0.5 ? '05' : spd === 1 ? '1' : '2';
+            const active = document.getElementById(`spd-${key}`);
+            active.classList.add('bg-amber-600', 'text-stone-950', 'font-bold');
+
+            if (isPlaying) {
+                stopAnim();
+                startAnim();
+            }
+        }
+
+        // ================= LATIHAN SOAL DATA & LOGIC =================
+        const LATIHAN_DATA = {
+            1: [
+                {
+                    q: 'Gunakan metode grafik untuk menentukan Himpunan Penyelesaian dari sistem: x + y = 4 dan x - y = 2.',
+                    ans: 'HP = {(3, 1)}',
+                    steps: [
+                        'Garis (1) x + y = 4: Potong Sumbu X di (4,0), Potong Sumbu Y di (0,4).',
+                        'Garis (2) x - y = 2: Potong Sumbu X di (2,0), Potong Sumbu Y di (0,-2).',
+                        'Pertemuan kedua garis terjadi di titik x = 3 dan y = 1.',
+                        'Jadi, HP = {(3, 1)}.'
+                    ]
+                }
+            ],
+            2: [
+                {
+                    q: 'Dengan metode substitusi, tentukan penyelesaian dari: 2x + y = 7 dan x - 3y = -7.',
+                    ans: 'HP = {(2, 3)}',
+                    steps: [
+                        'Isolasi y dari persamaan (1): y = 7 - 2x.',
+                        'Substitusi y ke pers (2): x - 3(7 - 2x) = -7.',
+                        'x - 21 + 6x = -7 => 7x = 14 => x = 2.',
+                        'Substitusi kembali x = 2: y = 7 - 2(2) = 3.',
+                        'Jadi, HP = {(2, 3)}.'
+                    ]
+                }
+            ],
+            3: [
+                {
+                    q: 'Tentukan Himpunan Penyelesaian dari 3x + 4y = 18 dan 2x - 4y = 2 dengan metode eliminasi.',
+                    ans: 'HP = {(4, 2.5)}',
+                    steps: [
+                        'Koefisien y sudah sama namun berlawanan tanda (+4y dan -4y).',
+                        'Jumlahkan kedua persamaan secara vertikal:',
+                        '(3x + 4y) + (2x - 4y) = 18 + 2 => 5x = 20 => x = 4.',
+                        'Eliminasi x dengan menyamakan koefisien (KPK 3 dan 2 adalah 6):',
+                        '6x + 8y = 36 dan 6x - 12y = 6 => kurangkan => 20y = 30 => y = 1.5.',
+                        'Jadi, HP = {(4, 1.5)}.'
+                    ]
+                }
+            ],
+            4: [
+                {
+                    q: 'Soal Cerita: Budi membeli 3 buku tulis dan 2 pensil seharga Rp16.000,00. Anisa membeli 2 buku tulis dan 3 pensil seharga Rp14.000,00. Berapakah harga 1 buku tulis dan 1 pensil?',
+                    ans: 'Buku = Rp4.000, Pensil = Rp2.000',
+                    steps: [
+                        'Modelkan: x = harga 1 buku, y = harga 1 pensil.',
+                        '(1) 3x + 2y = 16.000',
+                        '(2) 2x + 3y = 14.000',
+                        'Eliminasi y: (1)×3 => 9x + 6y = 48.000; (2)×2 => 4x + 6y = 28.000.',
+                        'Kurangkan => 5x = 20.000 => x = 4.000.',
+                        'Substitusi x = 4.000 ke (1): 3(4.000) + 2y = 16.000 => 12.000 + 2y = 16.000 => 2y = 4.000 => y = 2.000.',
+                        'Jadi, harga 1 buku = Rp4.000,00 dan 1 pensil = Rp2.000,00.'
+                    ]
+                }
+            ]
+        };
+
+        function loadLatihan(num) {
+            document.querySelectorAll('.lat-btn').forEach(b => {
+                b.classList.remove('bg-amber-600', 'text-stone-950', 'font-bold');
+                b.classList.add('bg-amber-950', 'text-amber-200');
+            });
+            const activeBtn = document.getElementById(`btn-lat-${num}`);
+            if(activeBtn) {
+                activeBtn.classList.add('bg-amber-600', 'text-stone-950', 'font-bold');
+                activeBtn.classList.remove('bg-amber-950', 'text-amber-200');
+            }
+
+            const list = LATIHAN_DATA[num];
+            const container = document.getElementById('latihan-container');
+            container.innerHTML = '';
+
+            list.forEach((item, idx) => {
+                const box = document.createElement('div');
+                box.className = 'card-gold p-5 rounded-2xl space-y-4';
+                box.innerHTML = `
+                    <div class="flex items-start gap-3">
+                        <span class="w-7 h-7 rounded-lg bg-amber-600 text-stone-950 font-bold flex items-center justify-center flex-shrink-0 text-sm">${idx+1}</span>
+                        <div class="space-y-1">
+                            <p class="font-medium text-stone-200 text-sm leading-relaxed">${item.q}</p>
+                        </div>
+                    </div>
+                    <div class="pt-2 border-t border-amber-800/30 flex flex-wrap items-center justify-between gap-3">
+                        <button onclick="togglePembahasan('lat-${num}-${idx}')" class="px-3 py-1.5 rounded-lg bg-amber-950 border border-amber-700/50 hover:bg-amber-900 text-amber-300 text-xs font-semibold flex items-center gap-1.5 transition">
+                            <i data-lucide="eye" class="w-4 h-4"></i> Lihat Pembahasan Langkah demi Langkah
+                        </button>
+                    </div>
+                    <div id="lat-${num}-${idx}" class="hidden p-4 rounded-xl bg-stone-950 border border-amber-800/40 text-xs space-y-2 text-stone-300">
+                        <div class="font-bold text-amber-300 border-b border-amber-800/40 pb-1">Pembahasan Detail:</div>
+                        <ol class="list-decimal list-inside space-y-1 font-mono">
+                            ${item.steps.map(s => `<li>${s}</li>`).join('')}
+                        </ol>
+                        <div class="mt-3 p-2 rounded bg-amber-900/30 border border-amber-500/30 text-amber-200 font-bold">
+                            Hasil Akhir: ${item.ans}
+                        </div>
+                    </div>
+                `;
+                container.appendChild(box);
+            });
+
+            lucide.createIcons();
+            if(window.MathJax) MathJax.typesetPromise();
+        }
+
+        function togglePembahasan(id) {
+            const el = document.getElementById(id);
+            el.classList.toggle('hidden');
+            playBeep('C5');
+        }
+
+        // ================= KALKULATOR CUSTOM SPLDV =================
+        function calculateCustomSPLDV() {
+            const a1 = parseFloat(document.getElementById('calc-a1').value) || 0;
+            const b1 = parseFloat(document.getElementById('calc-b1').value) || 0;
+            const c1 = parseFloat(document.getElementById('calc-c1').value) || 0;
+
+            const a2 = parseFloat(document.getElementById('calc-a2').value) || 0;
+            const b2 = parseFloat(document.getElementById('calc-b2').value) || 0;
+            const c2 = parseFloat(document.getElementById('calc-c2').value) || 0;
+
+            // Determinant D = a1*b2 - a2*b1
+            const D = a1 * b2 - a2 * b1;
+            const badge = document.getElementById('calc-result-badge');
+            const output = document.getElementById('calc-steps-output');
+
+            const canvas = document.getElementById('custom-canvas');
+            const ctx = canvas.getContext('2d');
+
+            if (D === 0) {
+                badge.className = 'text-xs font-bold text-red-400 bg-red-950/80 px-3 py-1 rounded-full border border-red-700/40';
+                badge.innerText = 'Tidak ada solusi tunggal (Garis Sejajar / Berimpit)';
+
+                output.innerHTML = `
+                    <div class="p-3 bg-red-950/40 border border-red-700/40 rounded-lg text-red-300">
+                        Determinant D = (${a1}×${b2}) - (${a2}×${b1}) = 0.<br>
+                        Sistem tidak memiliki satu titik potong unik.
+                    </div>
+                `;
+                drawCustomGraph(ctx, canvas.width, canvas.height, a1, b1, c1, a2, b2, c2, null, null);
+                return;
+            }
+
+            // Cramer's rule for exact coordinates
+            const x = (c1 * b2 - c2 * b1) / D;
+            const y = (a1 * c2 - a2 * c1) / D;
+
+            badge.className = 'text-xs font-bold text-emerald-400 bg-emerald-950/80 px-3 py-1 rounded-full border border-emerald-700/40';
+            badge.innerText = `Titik Potong Solusi: (${x.toFixed(2)}, ${y.toFixed(2)})`;
+
+            output.innerHTML = `
+                <h4 class="font-bold text-amber-300 border-b border-amber-800/40 pb-2">Langkah Pembuktian Presisi (Metode Eliminasi & Substitusi):</h4>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 font-mono text-xs">
+                    <div class="p-3 bg-stone-900 rounded-lg border border-amber-900/40 space-y-1">
+                        <span class="text-amber-400 font-bold block">1. Menghitung Variabel x:</span>
+                        <p>x = (c1·b2 - c2·b1) / (a1·b2 - a2·b1)</p>
+                        <p>x = (${c1}×${b2} - ${c2}×${b1}) / (${a1}×${b2} - ${a2}×${b1})</p>
+                        <p class="text-amber-300 font-bold">x = ${x.toFixed(2)}</p>
+                    </div>
+                    <div class="p-3 bg-stone-900 rounded-lg border border-amber-900/40 space-y-1">
+                        <span class="text-amber-400 font-bold block">2. Menghitung Variabel y:</span>
+                        <p>y = (a1·c2 - a2·c1) / (a1·b2 - a2·b1)</p>
+                        <p>y = (${a1}×${c2} - ${a2}×${c1}) / (${a1}×${b2} - ${a2}×${b1})</p>
+                        <p class="text-blue-400 font-bold">y = ${y.toFixed(2)}</p>
+                    </div>
+                </div>
+                <div class="p-3 bg-amber-950/60 rounded-lg border border-amber-600/40 font-bold text-amber-200 text-center">
+                    Himpunan Penyelesaian HP = {(${x.toFixed(2)}, ${y.toFixed(2)})}
+                </div>
+            `;
+
+            drawCustomGraph(ctx, canvas.width, canvas.height, a1, b1, c1, a2, b2, c2, x, y);
+            playBeep('G5');
+        }
+
+        function drawCustomGraph(ctx, w, h, a1, b1, c1, a2, b2, c2, ix, iy) {
+            ctx.clearRect(0, 0, w, h);
+
+            const cx = w / 2;
+            const cy = h / 2;
+            const scale = 18;
+
+            // Grid
+            ctx.strokeStyle = '#2d2015';
+            ctx.lineWidth = 1;
+            for(let x=0; x<w; x+=scale) { ctx.beginPath(); ctx.moveTo(x,0); ctx.lineTo(x,h); ctx.stroke(); }
+            for(let y=0; y<h; y+=scale) { ctx.beginPath(); ctx.moveTo(0,y); ctx.lineTo(w,y); ctx.stroke(); }
+
+            // Axes
+            ctx.strokeStyle = '#d97706';
+            ctx.lineWidth = 2;
+            ctx.beginPath(); ctx.moveTo(0,cy); ctx.lineTo(w,cy); ctx.stroke();
+            ctx.beginPath(); ctx.moveTo(cx,0); ctx.lineTo(cx,h); ctx.stroke();
+
+            const toCanvasX = (x) => cx + x * scale;
+            const toCanvasY = (y) => cy - y * scale;
+
+            // Line 1: a1*x + b1*y = c1 => y = (c1 - a1*x)/b1
+            if(b1 !== 0) {
+                ctx.strokeStyle = '#f59e0b';
+                ctx.lineWidth = 2.5;
+                ctx.beginPath();
+                const xStart = -15; const yStart = (c1 - a1 * xStart) / b1;
+                const xEnd = 15; const yEnd = (c1 - a1 * xEnd) / b1;
+                ctx.moveTo(toCanvasX(xStart), toCanvasY(yStart));
+                ctx.lineTo(toCanvasX(xEnd), toCanvasY(yEnd));
+                ctx.stroke();
+            }
+
+            // Line 2: a2*x + b2*y = c2 => y = (c2 - a2*x)/b2
+            if(b2 !== 0) {
+                ctx.strokeStyle = '#a855f7';
+                ctx.lineWidth = 2.5;
+                ctx.beginPath();
+                const xStart = -15; const yStart = (c2 - a2 * xStart) / b2;
+                const xEnd = 15; const yEnd = (c2 - a2 * xEnd) / b2;
+                ctx.moveTo(toCanvasX(xStart), toCanvasY(yStart));
+                ctx.lineTo(toCanvasX(xEnd), toCanvasY(yEnd));
+                ctx.stroke();
+            }
+
+            // Intersection point
+            if(ix !== null && iy !== null) {
+                const px = toCanvasX(ix);
+                const py = toCanvasY(iy);
+                ctx.fillStyle = '#10b981';
+                ctx.beginPath(); ctx.arc(px, py, 6, 0, Math.PI * 2); ctx.fill();
+            }
+        }
+
+        // ================= TES AKHIR MODUL (20 SOAL) DATA & LOGIC =================
+        const QUIZ_QUESTIONS = [
+            { q: "1. Persamaan linear dua variabel adalah persamaan yang memuat...", opts: ["1 variabel berpangkat 2", "2 variabel berpangkat 1", "3 variabel berpangkat 1", "2 variabel berpangkat 2"], ans: 1, exp: "Persamaan Linear Dua Variabel (PLDV) memiliki tepat 2 variabel bertingkat/pangkat 1." },
+            { q: "2. Nilai x yang memenuhi persamaan x + y = 5 jika y = 2 adalah...", opts: ["1", "2", "3", "4"], ans: 2, exp: "x + 2 = 5 => x = 3." },
+            { q: "3. Himpunan penyelesaian dari x + y = 6 dan x - y = 2 adalah...", opts: ["{(4, 2)}", "{(2, 4)}", "{(3, 3)}", "{(5, 1)}"], ans: 0, exp: "Jumlahkan: 2x = 8 => x = 4, maka y = 2." },
+            { q: "4. Di antara pasangan berikut, yang merupakan solusi dari 2x + 3y = 12 adalah...", opts: ["(0, 4)", "(3, 1)", "(2, 2)", "(1, 3)"], ans: 0, exp: "2(0) + 3(4) = 12 (Benar)." },
+            { q: "5. Metode penyelesaian SPLDV dengan cara mengganti salah satu variabel disebut...", opts: ["Eliminasi", "Substitusi", "Grafik", "Matriks"], ans: 1, exp: "Substitusi berarti mengganti variabel dengan nilai/persamaan lain." },
+            { q: "6. Jika 3x + y = 10 dan x = 2, berapakah nilai y?", opts: ["2", "4", "6", "8"], ans: 1, exp: "3(2) + y = 10 => 6 + y = 10 => y = 4." },
+            { q: "7. KPK dari koefisien x pada persamaan 2x + y = 5 dan 3x - 2y = 4 adalah...", opts: ["4", "5", "6", "12"], ans: 2, exp: "Koefisien x adalah 2 dan 3. KPK(2, 3) = 6." },
+            { q: "8. Jika dua garis pada grafik SPLDV sejajar, maka banyaknya penyelesaian adalah...", opts: ["Tepat satu", "Dua", "Tidak ada", "Tak hingga"], ans: 2, exp: "Garis sejajar tidak pernah berpotongan, sehingga tidak punya solusi." },
+            { q: "9. Jika dua garis berimpit, maka penyelesaiannya...", opts: ["Tidak ada", "Tepat satu", "Dua", "Tak hingga"], ans: 3, exp: "Garis berimpit memuat seluruh titik yang sama." },
+            { q: "10. Penyelesaian dari 2x - y = 4 dan x + y = 5 adalah...", opts: ["{(3, 2)}", "{(2, 3)}", "{(1, 4)}", "{(4, 1)}"], ans: 0, exp: "Jumlahkan: 3x = 9 => x = 3, y = 2." },
+            { q: "11. Harga 2 kg apel dan 1 kg jeruk Rp40.000,00. Jika apel = x dan jeruk = y, modelnya adalah...", opts: ["2x + y = 40.000", "x + 2y = 40.000", "2x + 2y = 40.000", "x + y = 40.000"], ans: 0, exp: "2x + 1y = 40.000." },
+            { q: "12. Nilai x dari sistem 3x + 2y = 12 dan 2x + 2y = 10 adalah...", opts: ["1", "2", "3", "4"], ans: 1, exp: "Kurangkan: x = 2." },
+            { q: "13. Nilai y dari soal nomor 12 di atas adalah...", opts: ["1", "2", "3", "4"], ans: 2, exp: "2(2) + 2y = 10 => 2y = 6 => y = 3." },
+            { q: "14. Keliling persegi panjang 20 cm. Panjang (x) lebih 2 cm dari lebar (y). Sistem persamaannya...", opts: ["x + y = 10 & x - y = 2", "2x + 2y = 10 & x + y = 2", "x + y = 20 & x - y = 2", "x + 2y = 20 & x - y = 2"], ans: 0, exp: "K = 2(x+y) = 20 => x+y = 10. Selisih x - y = 2." },
+            { q: "15. Solusi dari soal nomor 14 (panjang x dan lebar y) adalah...", opts: ["x = 6, y = 4", "x = 7, y = 3", "x = 8, y = 2", "x = 5, y = 5"], ans: 0, exp: "x+y=10, x-y=2 => 2x=12 => x=6, y=4." },
+            { q: "16. Metode gabungan adalah kombinasi antara...", opts: ["Grafik dan Eliminasi", "Eliminasi dan Substitusi", "Grafik dan Substitusi", "Tabel dan Grafik"], ans: 1, exp: "Metode gabungan menggabungkan Eliminasi & Substitusi." },
+            { q: "17. Hasil eliminasi y dari 2x + y = 8 dan x - y = 1 adalah...", opts: ["3x = 9", "x = 7", "3x = 7", "x = 9"], ans: 0, exp: "Jumlahkan vertikal: (2x+x) + (y-y) = 8+1 => 3x = 9." },
+            { q: "18. Jika HP dari SPLDV adalah {(2, -1)}, maka nilai dari 2x + 3y adalah...", opts: ["1", "2", "0", "-1"], ans: 0, exp: "2(2) + 3(-1) = 4 - 3 = 1." },
+            { q: "19. Titik potong sumbu Y dari persamaan 4x + 3y = 12 terjadi saat...", opts: ["x = 0, y = 4", "x = 3, y = 0", "x = 0, y = 3", "x = 4, y = 0"], ans: 0, exp: "Sumbu Y terjadi saat x = 0 => 3y = 12 => y = 4. Titik (0,4)." },
+            { q: "20. HP dari x + 2y = 8 dan 2x - y = 1 adalah...", opts: ["{(2, 3)}", "{(3, 2)}", "{(1, 3.5)}", "{(4, 2)}"], ans: 0, exp: "Substitusi/Eliminasi menghasilkan x = 2 dan y = 3." }
+        ];
+
+        let userAnswers = new Array(QUIZ_QUESTIONS.length).fill(null);
+
+        function renderQuiz() {
+            const list = document.getElementById('quiz-questions-list');
+            list.innerHTML = '';
+
+            QUIZ_QUESTIONS.forEach((q, idx) => {
+                const card = document.createElement('div');
+                card.className = 'card-gold p-5 rounded-2xl space-y-3';
+                card.innerHTML = `
+                    <p class="font-bold text-amber-200 text-sm">${q.q}</p>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-2">
+                        ${q.opts.map((opt, oIdx) => `
+                            <button onclick="selectAnswer(${idx}, ${oIdx})" id="q-${idx}-opt-${oIdx}" class="quiz-opt-btn text-left p-2.5 rounded-xl bg-stone-900 border border-amber-800/40 text-stone-300 hover:bg-amber-900/40 hover:text-amber-200 text-xs transition flex items-center gap-2">
+                                <span class="w-5 h-5 rounded-full bg-stone-800 border border-amber-700/50 flex items-center justify-center font-bold text-[10px] text-amber-400">${String.fromCharCode(65+oIdx)}</span>
+                                <span>${opt}</span>
+                            </button>
+                        `).join('')}
+                    </div>
+                    <div id="quiz-exp-${idx}" class="hidden mt-2 p-3 rounded-xl bg-stone-950 border border-amber-800/40 text-xs space-y-1 text-stone-300">
+                        <span class="font-bold text-amber-300 block">Pembahasan:</span>
+                        <p>${q.exp}</p>
+                    </div>
+                `;
+                list.appendChild(card);
+            });
+        }
+
+        function selectAnswer(qIdx, oIdx) {
+            userAnswers[qIdx] = oIdx;
+
+            for(let i=0; i<4; i++) {
+                const btn = document.getElementById(`q-${qIdx}-opt-${i}`);
+                if(btn) {
+                    btn.classList.remove('bg-amber-600', 'text-stone-950', 'font-bold', 'border-amber-400');
+                    btn.classList.add('bg-stone-900', 'text-stone-300');
+                }
+            }
+
+            const selectedBtn = document.getElementById(`q-${qIdx}-opt-${oIdx}`);
+            if(selectedBtn) {
+                selectedBtn.classList.add('bg-amber-600', 'text-stone-950', 'font-bold', 'border-amber-400');
+                selectedBtn.classList.remove('bg-stone-900', 'text-stone-300');
+            }
+
+            playBeep('D5');
+        }
+
+        function submitQuiz() {
+            let correct = 0;
+            QUIZ_QUESTIONS.forEach((q, idx) => {
+                const expBox = document.getElementById(`quiz-exp-${idx}`);
+                expBox.classList.remove('hidden');
+
+                if(userAnswers[idx] === q.ans) {
+                    correct++;
+                }
+            });
+
+            const score = (correct / QUIZ_QUESTIONS.length) * 100;
+            document.getElementById('quiz-score-display').innerText = `${score} / 100`;
+
+            if(score >= 75) {
+                confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
+            }
+
+            playBeep('A5');
+        }
+
+        // ================= INITIALIZATION =================
+        window.onload = function() {
+            loadMateri('grafik');
+            loadLatihan(1);
+            renderQuiz();
+            lucide.createIcons();
+        };
+    </script>
+</body>
+</html>
